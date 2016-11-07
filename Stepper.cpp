@@ -33,7 +33,7 @@ Stepper::Stepper(int numberOfSteps,
   }
 }
 
-void Stepper::setSpeed(unsigned short s) {
+void Stepper::setSpeed(double s) {
   m_stepDelay = 60000000L / (m_numberOfSteps * s);
 }
 
@@ -93,60 +93,10 @@ void Stepper::doSteps() {
       }
       break;
     case PinGroup::MEGA2560_6_9:
-      switch (m_stepIndex) {
-        case 0:
-          *PORT_H = (*PORT_H & 0x87) | 0x40;
-          break;
-        case 1:
-          *PORT_H = (*PORT_H & 0x87) | 0x60;
-          break;
-        case 2:
-          *PORT_H = (*PORT_H & 0x87) | 0x20;
-          break;
-        case 3:
-          *PORT_H = (*PORT_H & 0x87) | 0x30;
-          break;
-        case 4:
-          *PORT_H = (*PORT_H & 0x87) | 0x10;
-          break;
-        case 5:
-          *PORT_H = (*PORT_H & 0x87) | 0x18;
-          break;
-        case 6:
-          *PORT_H = (*PORT_H & 0x87) | 0x08;
-          break;
-        case 7:
-          *PORT_H = (*PORT_H & 0x87) | 0x48;
-          break;
-      }
+      *PORT_H = (*PORT_H & PORT_H_MASK) | PORT_H_STEPS[m_stepIndex];
       break;
     case PinGroup::MEGA2560_10_13:
-      switch (m_stepIndex) {
-        case 0:
-          *PORT_B = (*PORT_B & 0x0F) | 0x80;
-          break;
-        case 1:
-          *PORT_B = (*PORT_B & 0x0F) | 0xC0;
-          break;
-        case 2:
-          *PORT_B = (*PORT_B & 0x0F) | 0x40;
-          break;
-        case 3:
-          *PORT_B = (*PORT_B & 0x0F) | 0x60;
-          break;
-        case 4:
-          *PORT_B = (*PORT_B & 0x0F) | 0x20;
-          break;
-        case 5:
-          *PORT_B = (*PORT_B & 0x0F) | 0x30;
-          break;
-        case 6:
-          *PORT_B = (*PORT_B & 0x0F) | 0x10;
-          break;
-        case 7:
-          *PORT_B = (*PORT_B & 0x0F) | 0x90;
-          break;
-      }
+      *PORT_B = (*PORT_B & PORT_B_MASK) | PORT_B_STEPS[m_stepIndex];
       break;
   }
 }

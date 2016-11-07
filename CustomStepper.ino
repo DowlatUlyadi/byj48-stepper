@@ -1,10 +1,10 @@
 #include "Stepper.h"
 
 const unsigned int stepCount = 64 * 64;
-const unsigned int speed = 10;
+const double speed = 0.2;
 
-Stepper sOptimal(stepCount, Stepper::PinGroup::MEGA2560_6_9);
-Stepper sSlow(stepCount, 6, 7, 8, 9);
+Stepper sOptimal(stepCount, Stepper::PinGroup::MEGA2560_10_13);
+Stepper sSlow(stepCount, 10, 11, 12, 13);
 
 void setup() {
   // put your setup code here, to run once:
@@ -14,12 +14,12 @@ void setup() {
 }
 
 void loop() {
-  sSlow.step(stepCount);
+  sSlow.step(stepCount >> 2);
   delay(500);
-  sSlow.step(-stepCount);
+  sSlow.step(-(stepCount >> 2));
   delay(500);
-  sOptimal.step(stepCount);
+  sOptimal.step(stepCount >> 2);
   delay(500);
-  sOptimal.step(-stepCount);
+  sOptimal.step(-(stepCount >> 2));
   delay(500);
 }
