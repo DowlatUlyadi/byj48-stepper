@@ -30,7 +30,7 @@ public:
   PinGroup m_pinGroup;
   unsigned char* DDR_B = (unsigned char*)0x24;
   unsigned char* PORT_B = (unsigned char*)0x25;
-  const unsigned char PORT_B_MASK = 0xF0;
+  const unsigned char PORT_B_MASK = 0x0F;
   const unsigned char PORT_B_STEPS[8] {
     0x80, 0xC0, 0x40, 0x60,
     0x20, 0x30, 0x10, 0x90
