@@ -1,10 +1,28 @@
-#include "Arduino.h"
+/*
+ * Stepper.h - Library for controlling BYJ48 stepper motor.
+ * Contains some optimizations for MEGA2560.
+ * Created by Christian Scott, November 11, 2016
+ * Released into the public domain
+ * 
+ * Created because BYJ48 uses a different sequence than
+ * some other 4-pin stepper motors:
+ * Step# Pin1 Pin2 Pin3 Pin4
+ * 0 - 0 0 0 1
+ * 1 - 0 0 1 1
+ * 2 - 0 0 1 0
+ * 3 - 0 1 1 0
+ * 4 - 0 1 0 0
+ * 5 - 1 1 0 0
+ * 6 - 1 0 0 0
+ * 7 - 1 0 0 1 
+ */
+ 
+ #include "Arduino.h"
 #include "Stepper.h"
 
-Stepper::Stepper(int t_numberOfSteps,
+Stepper::Stepper(
   int t_motorPin1, int t_motorPin2,
   int t_motorPin3, int t_motorPin4) :
-    m_numberOfSteps(t_numberOfSteps),
     m_motorPin1(t_motorPin1), m_motorPin2(t_motorPin2),
     m_motorPin3(t_motorPin3), m_motorPin4(t_motorPin4),
     m_stepIndex(0),
@@ -15,9 +33,7 @@ Stepper::Stepper(int t_numberOfSteps,
   pinMode(m_motorPin4, OUTPUT);
 }
 
-Stepper::Stepper(int numberOfSteps,
-  PinGroup pinGroup) :
-    m_numberOfSteps(numberOfSteps),
+Stepper::Stepper(PinGroup pinGroup) :
     m_pinGroup(pinGroup),
     m_stepIndex(0),
     m_lastStepTime(0) {
@@ -34,7 +50,7 @@ Stepper::Stepper(int numberOfSteps,
 }
 
 void Stepper::setSpeed(double s) {
-  m_stepDelay = 60000000L / (m_numberOfSteps * s);
+  m_stepDelay = 60000000L / (STEPS_PER_ROTATION * s);
 }
 
 void Stepper::step(int steps) {
