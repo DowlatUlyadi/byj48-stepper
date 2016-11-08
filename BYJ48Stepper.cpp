@@ -1,5 +1,5 @@
 /*
- * Stepper.h - Library for controlling BYJ48 stepper motor.
+ * BYJ48Stepper.h - Library for controlling BYJ48 stepper motor.
  * Contains some optimizations for MEGA2560.
  * Created by Christian Scott, November 11, 2016
  * Released into the public domain
@@ -17,8 +17,8 @@
  * 7 - 1 0 0 1 
  */
  
- #include "Arduino.h"
-#include "Stepper.h"
+#include "Arduino.h"
+#include "BYJ48Stepper.h"
 
 Stepper::Stepper(
   int t_motorPin1, int t_motorPin2,
